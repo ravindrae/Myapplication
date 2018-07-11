@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormErrors } from  './FormErrors';
 export default class LoginForm extends React.Component{
 
   constructor (props){
@@ -6,7 +7,8 @@ export default class LoginForm extends React.Component{
     this.state={
       email:"",
       password:"",
-      remember_me:false
+      remember_me:false,
+      formErrors:""
     }
   }
 
@@ -24,7 +26,13 @@ export default class LoginForm extends React.Component{
     e.preventDefault();
     var user={email:this.state.email, password:this.state.password, remember_me:this.state.remember_me};
     console.log(user);
-    $.post('/users/sign_in',{user: user});
+    $.post('/users/sign_in',{user: user}).done((data)=>{
+      console.log("Successfull login..!");
+      
+    }).fail((response) => {
+      console.log(response);
+      this.setState({formErrors: response.responseText})
+    });
   }
 
   render (){
@@ -36,6 +44,7 @@ export default class LoginForm extends React.Component{
         </div>
 
         <div className="login-box-body">
+          <FormErrors formErrors={this.state.formErrors}/>
           <p className="login-box-msg">Log in to start your session</p>
 
           <form onSubmit={this.handleFormSubmit.bind(this)}>

@@ -23,25 +23,9 @@
 
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
-    <%=render partial: 'partials/header'%>
-    <%=render partial: 'partials/aside_navbar'%>
-
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- /.content -->
-      <%if notice%><div class="alert alert-default"><%=notice%></div><%end%>
-      <%= yield %>
-    </div>
-  <!-- /.content-wrapper -->
-
-    <%=render partial: 'partials/footer'%>
-
-    <!-- Control Sidebar -->
-    <%=render partial: 'partials/control_sidebar'%>
+    <%=yield%>
   </div>
-  <script>
-    $.widget.bridge('uibutton', $.ui.button);
-  </script>
+
 <!-- ./wrapper -->
 </body>
 </html>
